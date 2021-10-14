@@ -5,22 +5,7 @@ public class World {
         System.out.println("Start");
 
         Direction[] dirs = new Direction[args.length];
-        for (int i=0; i<args.length; i++){
-            switch (args[i]){
-                case "l":
-                    dirs[i] = Direction.l;
-                    break;
-                case "r":
-                    dirs[i] = Direction.r;
-                    break;
-                case "f":
-                    dirs[i] = Direction.f;
-                    break;
-                case "b":
-                    dirs[i] = Direction.b;
-                    break;
-            }
-        }
+        transform(args, dirs);
 
         run(dirs);
 
