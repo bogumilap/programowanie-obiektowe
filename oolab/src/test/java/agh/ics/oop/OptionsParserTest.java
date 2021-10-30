@@ -18,13 +18,16 @@ public class OptionsParserTest {
 
         MapDirection orientation = testAnimal.getOrientaion();
         Vector2d location = testAnimal.getLocation();
+
         Vector2d proper_location = new Vector2d(1, 4);
-        MoveDirection[] proper_directions = new MoveDirection[] {MoveDirection.BACKWARD, MoveDirection.FORWARD,
-                MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.RIGHT,
-                MoveDirection.BACKWARD};
 
         Assertions.assertEquals(MapDirection.EAST, orientation);
         Assertions.assertEquals(proper_location, location);
+
+
+        MoveDirection[] proper_directions = new MoveDirection[] {MoveDirection.BACKWARD, MoveDirection.FORWARD,
+                MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.RIGHT,
+                MoveDirection.BACKWARD};
 
         Assertions.assertEquals(proper_directions.length, directions.length);
         for (int i=0; i<proper_directions.length; i++) {

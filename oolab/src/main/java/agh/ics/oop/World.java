@@ -1,18 +1,27 @@
 package agh.ics.oop;
 
 public class World {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        System.out.println(animal);
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
+
+        OptionsParser parser = new OptionsParser();
+        MoveDirection[] dirs = parser.parse(new String[]{"r", "f", "f", "f"});
+        Animal animal1 = new Animal();
+        for (MoveDirection d : dirs) {
+            animal1.move(d);
+        }
+        System.out.println(animal1);
+
 //        System.out.println("Start");
 //        run(transform(args));
 //        System.out.println("Stop");
-
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
     }
-
 
     public static Direction[] transform(String[] args){
         int cnt = 0;

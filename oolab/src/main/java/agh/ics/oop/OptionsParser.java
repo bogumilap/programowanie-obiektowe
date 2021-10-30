@@ -3,6 +3,7 @@ package agh.ics.oop;
 public class OptionsParser {
     public MoveDirection[] parse(String[] strings) {
         int counter = 0;
+
         for (String string : strings) {
             if (string.equals("b") || string.equals("backward") || string.equals("f") || string.equals("forward") ||
             string.equals("r") || string.equals("right") || string.equals("l") || string.equals("left")) {
@@ -11,6 +12,7 @@ public class OptionsParser {
         }
 
         MoveDirection[] parsed = new MoveDirection[counter];
+
         int index = 0;
         for (String string : strings) {
             switch (string) {

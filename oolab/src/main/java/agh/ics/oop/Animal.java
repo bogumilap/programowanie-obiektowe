@@ -1,14 +1,6 @@
 package agh.ics.oop;
 
 public class Animal {
-    public MapDirection getOrientaion() {
-        return orientaion;
-    }
-
-    public Vector2d getLocation() {
-        return location;
-    }
-
     private MapDirection orientaion = MapDirection.NORTH;
     private Vector2d location = new Vector2d(2, 2);
 
@@ -37,5 +29,13 @@ public class Animal {
                 }
             }
         }
+    }
+
+    public MapDirection getOrientaion() {
+        return orientaion;
+    }
+
+    public Vector2d getLocation() {
+        return location;
     }
 }
