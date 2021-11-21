@@ -1,8 +1,8 @@
 package agh.ics.oop;
 
 public class Vector2d {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Vector2d(int x, int y){
         this.x = x;
@@ -63,14 +63,6 @@ public class Vector2d {
 
     public int getY() {
         return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     // na potrzeby zgodności z klasą MapVisualiser
