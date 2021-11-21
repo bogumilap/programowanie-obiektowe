@@ -1,14 +1,17 @@
 package agh.ics.oop;
 
+import java.util.List;
+
 public class SimulationEngine implements IEngine {
-    private MoveDirection[] directions;
+    private final MoveDirection[] directions;
     private IWorldMap map;
-    private Vector2d[] positions;
+    private final Vector2d[] positions;
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
         this.directions = directions;
         this.map = map;
         this.positions = positions;
+        addToMap();
     }
 
     private void addToMap() {
@@ -20,15 +23,12 @@ public class SimulationEngine implements IEngine {
 
     @Override
     public void run() {
-        addToMap();
-
         int count = 0;
-        int numOfAnimals = positions.length;
+        List<Animal> animals = map.animals;
+        int numOfAnimals = animals.size();
         while (count < directions.length) {
-            Vector2d currentAnimal = positions[count % numOfAnimals];
-            if (map.objectAt(currentAnimal) instanceof Animal) {
-                ((Animal) map.objectAt(currentAnimal)).move(directions[count]);
-            }
+            Animal currentAnimal = animals.get(count % numOfAnimals);
+            currentAnimal.move(directions[count]);
             count++;
         }
     }
