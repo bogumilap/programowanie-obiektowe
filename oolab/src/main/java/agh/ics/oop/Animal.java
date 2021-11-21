@@ -41,8 +41,7 @@ public class Animal {
 
                 Vector2d new_location = location.add(step);
                 if (map.canMoveTo(new_location)) {
-                    location.setX(new_location.getX());
-                    location.setY(new_location.getY());
+                    location = new_location;
                 }
             }
         }
