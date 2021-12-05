@@ -5,12 +5,30 @@ import java.util.Map;
 
 public class GrassField extends AbstractWorldMap {
     private Map<Vector2d, Grass> map_grass = new HashMap<>();
+    public MapBoundary map_boundary = new MapBoundary();
     private final MapVisualiser visualiser = new MapVisualiser(this);
 
     public GrassField(int amount_of_grass) {
         this.start = new Vector2d(0, 0);
         this.end = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
         placeGrass(amount_of_grass);
+    }
+
+    @Override
+    public boolean place(Animal animal) {
+        Vector2d location = animal.getPosition();
+        if (canMoveTo(location)) {
+            animals.add(animal);
+            map_animals.put(location, animal);
+            animal.addObserver(this);
+
+            map_boundary.addAnimalVector(animal.getPosition());
+            animal.addObserver(map_boundary);
+
+            return true;
+        } else {
+            throw new IllegalArgumentException(location + " is not legal location");
+        }
     }
 
     public void placeGrass(int amount_of_grass) {
@@ -22,6 +40,7 @@ public class GrassField extends AbstractWorldMap {
             if (objectAt(new Vector2d(x, y)) == null) {
                 Vector2d grass_position = new Vector2d(x, y);
                 map_grass.put(grass_position, new Grass(grass_position));
+                map_boundary.addGrassVector(grass_position);
                 left_to_place--;
             }
         }
@@ -42,27 +61,22 @@ public class GrassField extends AbstractWorldMap {
         return map_grass.get(position);
     }
 
+    private void setStartAndEnd() {
+        start = map_boundary.getMin_grass();
+        Vector2d animal_start = new Vector2d(map_boundary.getVectors_x().get(0).getX(),
+                map_boundary.getVectors_y().get(0).getY());
+        start = start.lowerLeft(animal_start);
+
+        end = map_boundary.getMax_grass();
+        Vector2d animal_end = new Vector2d(map_boundary.getVectors_x().get(map_boundary.lastIndex()).getX(),
+                map_boundary.getVectors_y().get(map_boundary.lastIndex()).getY());
+        end = end.upperRight(animal_end);
+    }
+
     @Override
     public String toString() {
-        int first_x = Integer.MAX_VALUE;
-        int first_y = Integer.MAX_VALUE;
-        int last_x = 0;
-        int last_y = 0;
-
-        for (Vector2d key : map_animals.keySet()) {
-            first_x = Math.min(first_x, key.getX());
-            first_y = Math.min(first_y, key.getY());
-            last_x = Math.max(last_x, key.getX());
-            last_y = Math.max(last_y, key.getY());
-        }
-
-        for (Vector2d key : map_grass.keySet()) {
-            first_x = Math.min(first_x, key.getX());
-            first_y = Math.min(first_y, key.getY());
-            last_x = Math.max(last_x, key.getX());
-            last_y = Math.max(last_y, key.getY());
-        }
-
-        return visualiser.draw(new Vector2d(first_x, first_y), new Vector2d(last_x, last_y));
+        setStartAndEnd();
+        return visualiser.draw(start, end);
     }
+
 }

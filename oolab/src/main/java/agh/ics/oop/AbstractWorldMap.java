@@ -18,26 +18,26 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return (isInsideMap(position) && !isOccupied(position));
+        return (isInsideMap(position) && !(objectAt(position) instanceof Animal));
     }
 
     @Override
     public boolean place(Animal animal) {
-        Vector2d location = animal.getLocation();
+        Vector2d location = animal.getPosition();
         if (canMoveTo(location)) {
             animals.add(animal);
             map_animals.put(location, animal);
             animal.addObserver(this);
             return true;
+        } else {
+            throw new IllegalArgumentException(location + " is not legal location");
         }
-        return false;
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
         return (this.objectAt(position) != null);
     }
-
 
     @Override
     public String toString() {
