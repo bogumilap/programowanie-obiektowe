@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Animal {
     private MapDirection orientaion = MapDirection.NORTH;
-    private Vector2d location; // = new Vector2d(2, 2);
+    private Vector2d position; // = new Vector2d(2, 2);
     private IWorldMap map;
     private List<IPositionChangeObserver> observers = new LinkedList<>();
 
     public Animal() {
-        location = new Vector2d(2, 2);
+        position = new Vector2d(2, 2);
         map = new RectangularMap(5, 5);
     }
 
@@ -20,7 +20,7 @@ public class Animal {
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
         this.map = map;
-        this.location = initialPosition;
+        this.position = initialPosition;
     }
 
     @Override
@@ -43,10 +43,10 @@ public class Animal {
                     step = step.opposite();
                 }
 
-                Vector2d new_location = location.add(step);
+                Vector2d new_location = position.add(step);
                 if (map.canMoveTo(new_location)) {
-                    positionChanged(location, new_location);
-                    location = new_location;
+                    positionChanged(position, new_location);
+                    position = new_location;
                 }
             }
         }
@@ -70,7 +70,7 @@ public class Animal {
         return orientaion;
     }
 
-    public Vector2d getLocation() {
-        return location;
+    public Vector2d getPosition() {
+        return position;
     }
 }

@@ -24,9 +24,9 @@ public class SimulationEngineTest {
         // (3, 3)N  (3, 3)W  (3, 3)W  (3, 3)N  (3, 4)N  (3, 4)N  (3, 4)N  (3, 4)N
 
         List<Animal> animals = ((RectangularMap) map).getAnimals();
-        Vector2d location1 = animals.get(0).getLocation();
+        Vector2d location1 = animals.get(0).getPosition();
         MapDirection orientation1 = animals.get(0).getOrientaion();
-        Vector2d location2 = animals.get(1).getLocation();
+        Vector2d location2 = animals.get(1).getPosition();
         MapDirection orientation2 = animals.get(1).getOrientaion();
 
         Assertions.assertTrue(new Vector2d(2, 0).equals(location1));

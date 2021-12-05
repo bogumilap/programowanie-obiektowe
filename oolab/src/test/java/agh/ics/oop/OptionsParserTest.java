@@ -17,7 +17,7 @@ public class OptionsParserTest {
         }
 
         MapDirection orientation = testAnimal.getOrientaion();
-        Vector2d location = testAnimal.getLocation();
+        Vector2d location = testAnimal.getPosition();
 
         Vector2d proper_location = new Vector2d(1, 4);
 
